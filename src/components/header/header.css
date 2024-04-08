@@ -59,6 +59,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
 
 
             .headerIcon {
@@ -76,6 +77,47 @@
             .date {
                 position: absolute;
                 top: 50px;
+            }
+
+            .options {
+                position: absolute;
+                top: 50px;
+                color: gray;
+                background-color: #fff;
+                border-radius: 5px;
+
+                .optionItem {
+                    width: 200px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 10px;
+                    padding: 10px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #febb02;
+                        color: black;
+                    }
+
+                    .optionCounter {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        font-weight: 500;
+                        font-size: 12px;
+
+                        .optionCounterButton{
+                            height: 30px;
+                            width: 30px;
+                            border: 1px solid #0071c2;
+                            cursor: pointer;
+                        }
+                        .optionCounterButton:disabled{
+                            cursor: not-allowed;
+                        }
+                    }
+                }
             }
         }
         
