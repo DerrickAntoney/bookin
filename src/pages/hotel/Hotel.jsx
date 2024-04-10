@@ -4,43 +4,71 @@ import Header from "../../components/header/Header"
 import MailList from "../../components/mailList/MailList"
 import Footer from "../../components/footer/Footer"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { faCircleArrowLeft, faCircleArrowRight, faCircleXmark, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { useState } from'react';
 
 
 const Hotel = () => {
-  const [sliderNumber, setSliderNumber] = setState(0)
-  const [open, setOpen] = setState(false)
+  const [sliderNumber, setSliderNumber] = useState(0)
+  const [open, setOpen] = useState(false)
   const photos = [
     {
-      src: '../../../public/assets/hotelroom1.jpg',
+      src: '../../../assets/hotelroom1.jpg',
       alt: 'hotel photo',
     },
     {
-      src: '../../../public/assets/hotelroom2.jpg',
+      src: '../../../assets/hotelroom2.jpg',
       alt: 'hotel photo',
     },
     {
-      src: '../../../public/assets/hotelroom1.jpg',
+      src: '../../../assets/hotelroom1.jpg',
       alt: 'hotel photo',
     },
     {
-      src: '../../../public/assets/hotelroom2.jpg',
+      src: '../../../assets/hotelroom2.jpg',
       alt: 'hotel photo',
     },
     {
-      src: '../../../public/assets/hotelroom1.jpg',
+      src: '../../../assets/hotelroom1.jpg',
       alt: 'hotel photo',
     },
     {
-      src: '../../../public/assets/hotelroom2.jpg',
+      src: '../../../assets/hotelroom2.jpg',
       alt: 'hotel photo',
     },
   ]
+
+  const handleOpen = (i) => {
+    setSliderNumber(i);
+    setOpen(true);
+  }
+
+  const handleMove = (direction) => {
+    let newSliderNumber;
+
+    if (direction === 'l') {
+      newSliderNumber = sliderNumber === 0? photos.length - 1 : sliderNumber - 1;
+    } else {
+      newSliderNumber = sliderNumber === photos.length - 1? 0 : sliderNumber + 1;
+    }
+
+    setSliderNumber(newSliderNumber);
+
+  }
+
   return (
     <div>
       <Navbar/>
       <Header type="list"/>
       <div className="hotelContainer">
+        {open && <div className="slider">
+          <FontAwesomeIcon icon={faCircleXmark} className='close' onClick={()=>setOpen(false)}/>
+          <FontAwesomeIcon icon={faCircleArrowLeft} className='arrow'onClick={()=> handleMove('l')}/>
+              <div className="sliderWrapper" key={sliderNumber}>
+                <img src={photos[sliderNumber].src} alt={photos[sliderNumber].alt} className='sliderImg'/>
+              </div>
+          <FontAwesomeIcon icon={faCircleArrowRight} className='arrow' onClick={()=> handleMove('r')}/>
+          </div>}
         <div className="hotelWrapper">
           <button className="bookNow">Reserve or Book Now!</button>
           <h1 className="hotelTitle">Grand Hotel</h1>
@@ -57,7 +85,7 @@ const Hotel = () => {
           <div className="hotelImages">
             {photos.map((photo, i) => (
               <div className="hotelImgWrapper">
-                <img src={photo.src} onClick={()=>setSliderNumber(i)} alt={photo.alt} key={i} className='hotelImg'/>
+                <img src={photo.src} onClick={()=>handleOpen(i)} alt={photo.alt} key={i} className='hotelImg'/>
               </div> 
             ))}
           </div>
